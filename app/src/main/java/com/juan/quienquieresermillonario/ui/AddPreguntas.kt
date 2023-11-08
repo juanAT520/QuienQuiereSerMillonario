@@ -72,11 +72,11 @@ private fun EscribeArchivo(navController: NavController) {
         val opciones = listOf(opcionA, opcionB, opcionC, opcionD)
         val expanded = remember { mutableStateOf(false) }
 
-        CampoDeTexto(texto = pregunta, descripcion = "Introduce la pregunta: ")
-        CampoDeTexto(texto = opcionA, descripcion = "Introduce la primera opción: ")
-        CampoDeTexto(texto = opcionB, descripcion = "Introduce la segunda opción: ")
-        CampoDeTexto(texto = opcionC, descripcion = "Introduce la tercera opción: ")
-        CampoDeTexto(texto = opcionD, descripcion = "Introduce la cuarta opción: ")
+        CampoDeTexto(texto = pregunta, descripcion = "Introduce la pregunta: ", 65)
+        CampoDeTexto(texto = opcionA, descripcion = "Introduce la primera opción: ", 13)
+        CampoDeTexto(texto = opcionB, descripcion = "Introduce la segunda opción: ", 13)
+        CampoDeTexto(texto = opcionC, descripcion = "Introduce la tercera opción: ", 13)
+        CampoDeTexto(texto = opcionD, descripcion = "Introduce la cuarta opción: ", 13)
 
         TextButton(
             modifier = Modifier.padding(20.dp),
@@ -134,14 +134,22 @@ private fun EscribeArchivo(navController: NavController) {
 }
 
 @Composable
-private fun CampoDeTexto(texto: MutableState<String>, descripcion: String) {
-    TextField(
-        value = texto.value,
-        onValueChange = { texto.value = it },
-        label = { Text(descripcion) },
-        shape = RoundedCornerShape(7.dp),
-        modifier = Modifier
-            .border(width = 2.dp, color = white, shape = RoundedCornerShape(7.dp))
-    )
+private fun CampoDeTexto(texto: MutableState<String>, descripcion: String, maximo: Int) {
+    Column {
+        TextField(
+            value = texto.value,
+            onValueChange = { nuevoTexto ->
+                if (nuevoTexto.length <= maximo) {
+                    texto.value = nuevoTexto
+                }
+            },
+            label = { Text(descripcion) },
+            shape = RoundedCornerShape(7.dp),
+            modifier = Modifier
+                .border(width = 2.dp, color = white, shape = RoundedCornerShape(7.dp))
+        )
+        Text("${texto.value.length} / $maximo")
+    }
 }
+
 

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -25,6 +26,7 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -40,6 +42,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,7 +64,7 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class PantallaPreguntas : ViewModel() {
-    //var iniciarJuego = mutableStateOf(false)
+    var iniciarJuego = mutableStateOf(false)
     var dialogoAbierto = mutableStateOf(false)
     var esCorrecta = mutableStateOf(false)
     var estaPulsado = mutableStateOf(false)
@@ -80,16 +83,16 @@ class PantallaPreguntas : ViewModel() {
         navController: NavController
     ) {
         /*TODO en pruebas*/
-        //SeleccionaNumeroPreguntas(this, listaPreguntas)
-        //if (iniciarJuego) {
-        PantallaPregunta(listaPreguntas, listaImagenes, this, navController)
-        //}
+        SeleccionaNumeroPreguntas(this, listaPreguntas, navController)
+        if (iniciarJuego.value) {
+            PantallaPregunta(listaPreguntas, listaImagenes, this, navController)
+        }
     }
 }
 /*TODO Genera una interfaz para cuando la orientación del teléfono sea lateral (landscape) para el componente de juego, e implementa las funciones necesarias para que al girar la pantalla no pierdas información.*/
 /*TODO meter los sonidos del juego*/
 
-/* @Composable
+@Composable
 private fun SeleccionaNumeroPreguntas(
     miViewModel: PantallaPreguntas,
     listaPreguntas: List<Pregunta>,
@@ -97,31 +100,66 @@ private fun SeleccionaNumeroPreguntas(
 ) {
     var numeroPreguntas by remember { mutableStateOf("") }
     var dialogoAbierto by remember { mutableStateOf(true) }
-    miViewModel.numeroPreguntas = listaPreguntas.size
+    val totalPreguntas = listaPreguntas.size
+    val context = LocalContext.current
     if (dialogoAbierto) {
+        Image(
+            painter = painterResource(id = R.drawable.fondo),
+            contentDescription = "Imagen de fondo",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
+        )
         AlertDialog(
             onDismissRequest = {
-                dialogoAbierto = false
+                navController.popBackStack()
             },
-            title = { Text("Selecciona el número de preguntas: ") },
-            text = {
-                TextField(
-                    value = numeroPreguntas,
-                    onValueChange = { numeroPreguntas = it },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            title = {
+                Text(
+                    "Selecciona el número de preguntas: ",
+                    textAlign = TextAlign.Center
                 )
             },
+            text = {
+                Column {
+                    Text("Número máximo de preguntas: $totalPreguntas")
+                    TextField(
+                        value = numeroPreguntas,
+                        onValueChange = { numeroPreguntas = it },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                }
+            },
             confirmButton = {
-                /*TODO añadir otro botón con el máximo de preguntas disponibles*/
                 Button(
                     onClick = {
-                        val numPreguntas = numeroPreguntas.toIntOrNull()
-                        if (numPreguntas != null && numPreguntas in 1..miViewModel.numeroPreguntas) {
-                            miViewModel.numeroPreguntas = numeroPreguntas.toInt()
+                        numeroPreguntas = listaPreguntas.size.toString()
+                    },
+                    colors = ButtonDefaults.buttonColors(blue_Grotto)
+                ) {
+                    Text("Max")
+                }
+                Button(
+                    onClick = {
+                        val numPreguntas = numeroPreguntas.toInt()
+                        if (numPreguntas in 1..totalPreguntas) {
+                            miViewModel.numeroPreguntas = numPreguntas
                             miViewModel.iniciarJuego.value = true
                             dialogoAbierto = false
                         } else {
                             /*TODO meter los mensajes de error*/
+                            if (numPreguntas > totalPreguntas) {
+                                val text = "Número demasiado alto."
+                                val duration = Toast.LENGTH_SHORT
+                                Toast.makeText(context, text, duration).show()
+                            } else if (numPreguntas < 0) {
+                                val text = "No me vas a pillar con un número negativo."
+                                val duration = Toast.LENGTH_SHORT
+                                Toast.makeText(context, text, duration).show()
+                            } else if (numPreguntas == 0) {
+                                val text = "No puedo mostrar cero preguntas."
+                                val duration = Toast.LENGTH_SHORT
+                                Toast.makeText(context, text, duration).show()
+                            }
                         }
                     },
                     colors = ButtonDefaults.buttonColors(blue_Grotto)
@@ -132,7 +170,6 @@ private fun SeleccionaNumeroPreguntas(
         )
     }
 }
-*/
 
 @Composable
 private fun PantallaPregunta(
@@ -142,7 +179,6 @@ private fun PantallaPregunta(
     navController: NavController
 ) {
     val imagen = listaImagenes[miViewModel.indiceImagenes.intValue]
-    miViewModel.numeroPreguntas = listaPreguntas.size
     Image(
         painter = painterResource(id = R.drawable.fondo),
         contentDescription = "Imagen de fondo",
@@ -163,7 +199,7 @@ private fun PantallaPregunta(
         )
         TarjetaTextoPregunta(listaPreguntas[miViewModel.indice.intValue].pregunta)
         BotonesRespuesta(listaPreguntas[miViewModel.indice.intValue], miViewModel)
-        BotonesNavegacion(listaPreguntas, miViewModel)
+        BotonesNavegacion(miViewModel)
         Spacer(modifier = Modifier.size(50.dp))
         MuestraMensajeRespuesta(
             listaPreguntas[miViewModel.indice.intValue],
@@ -224,7 +260,7 @@ private fun BotonesRespuesta(pregunta: Pregunta, miViewModel: PantallaPreguntas)
 }
 
 @Composable
-private fun BotonesNavegacion(listaPreguntas: List<Pregunta>, miViewModel: PantallaPreguntas) {
+private fun BotonesNavegacion(miViewModel: PantallaPreguntas) {
     val context = LocalContext.current
     Row(Modifier.padding(0.dp, 50.dp, 0.dp, 0.dp)) {
         Button(
@@ -269,7 +305,7 @@ private fun BotonesNavegacion(listaPreguntas: List<Pregunta>, miViewModel: Panta
             onClick = {
                 miViewModel.numeroClicks++
                 if (!miViewModel.estaPulsado.value) {
-                    if (miViewModel.indice.intValue < listaPreguntas.size - 1) {
+                    if (miViewModel.indice.intValue < miViewModel.numeroPreguntas - 1) {
                         miViewModel.indice.intValue = miViewModel.indice.intValue + 1
                         miViewModel.indiceImagenes.intValue = Random.nextInt(0, 10)
                     } else {
