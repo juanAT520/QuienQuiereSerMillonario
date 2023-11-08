@@ -124,7 +124,12 @@ fun leerArchivo(context: Context): List<Pregunta> {
             listaDePreguntas.add(pregunta)
         }
     }
-    return listaDePreguntas
+    return listaDePreguntas.shuffled()
+}
+
+fun leerArchivoCompetitivo(context: Context): List<Pregunta> {
+    var listaPreguntasCompetitivo = leerArchivo(context)
+    return listaPreguntasCompetitivo.take(10)
 }
 
 // Este método lo tengo como auxiliar para eliminar preguntas. No lo he hecho yo y si

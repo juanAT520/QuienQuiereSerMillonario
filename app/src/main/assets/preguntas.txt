@@ -1,4 +1,4 @@
-¿Cuál es el planeta más grande del sistema solar?,A: mercurio,B: júpiter,C: el sol,D: saturno,B: júpiter
+¿Cuál es el planeta más grande del sistema solar?,A: Mercurio,B: Júpiter,C: El sol,D: Saturno,B: Júpiter
 ¿Cuál es el río más largo del mundo?,A: Nilo,B: Amazonas,C: Misisipi,D: Yangtsé,A: Nilo
 ¿Cuál es la capital de Francia?,A: Londres,B: Madrid,C: París,D: Roma,C: París
 ¿Quién pintó la "Mona Lisa"?,A: Van Gogh,B: Picasso,C: Da Vinci,D: Dalí,C: Da Vinci
@@ -8,3 +8,27 @@
 ¿Cuál de los siguientes no es uno de los colores primarios?,A: Rojo,B: Azul,C: Amarillo,D: Verde,D: Verde
 ¿Cuál es el gas más abundante en la atmósfera de la Tierra?,A: Oxígeno,B: Nitrógeno,C: CO2,D: Hidrógeno,B: Nitrógeno
 ¿Cuál es el resultado de la multiplicación de 7 por 8?,A: 14,B: 56,C: 64,D: 112,B: 56
+¿Cual es el país con la primera pista de aterrizaje para ovnis oficial?,A: Rusia,B: EEUU,C: Australia,D: Canadá,D: Canadá
+¿Cuando tuvo lugar la revolución de los gomeros?,A: 1979,B: 1484,C: 1324,D: 1449,B: 1484
+¿Cuál es el planeta más cercano al sol?,A: Mercurio,B: Venus,C: Marte,D: Júpiter,A: Mercurio
+¿Cuál es la montaña más alta del mundo?,A: K2,B: Everest,C: Kilimanjaro,D: Mont Blanc,B: Everest
+¿Cuál es la capital de España?,A: Barcelona,B: Valencia,C: Madrid,D: Sevilla,C: Madrid
+¿Quién escribió El Quijote?,A: Cervantes,B: Bécquer,C: Tolstoy,D: Hemingway,A: Cervantes
+¿Cuál es el símbolo químico del hidrógeno?,A: H,B: He,C: O,D: N,A: H
+¿Cuál es el océano más pequeño del mundo?,A: Atlántico,B: Índico,C: Ártico,D: Pacífico,C: Ártico
+¿Cuál de los siguientes no es uno de los estados de la materia?,A: Sólido,B: Líquido,C: Gas,D: Luz,D: Luz
+¿Cual es el país con la población más grande del mundo?,A: India,B: China,C: EEUU,D: Indonesia,B: China
+¿Cuando tuvo lugar la revolución francesa?,A: 1789,B: 1800,C: 1848,D: 1917,A: 1789
+¿Cual es el país con la superficie más pequeña del mundo?,A: Mónaco,B: Vaticano,C: Malta,D: San Marino,B: Vaticano
+¿Cuál es el instrumento musical más antiguo del mundo?,A: Tambor,B: Flauta,C: Lira,D: Arpa,B: Flauta
+¿Cuál es la capital de Australia?,A: Sydney,B: Melbourne,C: Canberra,D: Adelaida,C: Canberra
+¿Cuál es el río más largo de Europa?,A: Danubio,B: Volga,C: Rin,D: Dniéper,B: Volga
+¿En qué año se fundó la Organización de las Naciones Unidas?,A: 1945,B: 1950,C: 1955,D: 1960,A: 1945
+¿Cuando tuvo lugar la revolución industrial?,A: Siglo XVIII,B: Siglo XIX,C: Siglo XX,D: Siglo XVI,A: Siglo XVIII
+¿Cuál es el instrumento musical más grande del mundo?,A: Piano,B: Órgano,C: Contrabajo,D: Arpa,B: Órgano
+¿Cuál es la capital de Canadá?,A: Toronto,B: Vancouver,C: Ottawa,D: Montreal,C: Ottawa
+¿En qué año se fundó la Unión Europea?,A: 1945,B: 1957,C: 1963,D: 1973,B: 1957
+¿Cuál de los siguientes no es un continente?,A: América,B: Europa,C: Antártida,D: Australia,D: Australia
+¿Cuál es el resultado de la suma de 12 y 18?,A: 28,B: 30,C: 32,D: 34,B: 30
+¿Cual es el país con más volcanes activos?,A: Japón,B: Indonesia,C: Italia,D: EEUU,B: Indonesia
+¿Cuando tuvo lugar la revolución americana?,A: 1776,B: 1789,C: 1800,D: 1812,A: 1776
