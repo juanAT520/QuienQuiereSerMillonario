@@ -104,7 +104,13 @@ private fun EscribeArchivo(navController: NavController) {
 
         Button(
             onClick = {
-                if (!pregunta.value.isEmpty() && !respuesta.value.isEmpty()) {
+                if (!pregunta.value.isEmpty() &&
+                    !respuesta.value.isEmpty() &&
+                    !opcionA.value.isEmpty() &&
+                    !opcionB.value.isEmpty() &&
+                    !opcionC.value.isEmpty() &&
+                    !opcionD.value.isEmpty()
+                ) {
                     val contenido =
                         "${pregunta.value},${opcionA.value},${opcionB.value},${opcionC.value},${opcionD.value},${respuesta.value}"
                     val fileOutputStream: FileOutputStream =
@@ -121,6 +127,22 @@ private fun EscribeArchivo(navController: NavController) {
                     Toast.makeText(context, texto, duration).show()
                 } else if (respuesta.value.isEmpty()) {
                     val texto = "Falta la respuesta correcta."
+                    val duration = Toast.LENGTH_LONG
+                    Toast.makeText(context, texto, duration).show()
+                } else if (opcionA.value.isEmpty()) {
+                    val texto = "Falta la opción A."
+                    val duration = Toast.LENGTH_LONG
+                    Toast.makeText(context, texto, duration).show()
+                } else if (opcionB.value.isEmpty()) {
+                    val texto = "Falta la opción B."
+                    val duration = Toast.LENGTH_LONG
+                    Toast.makeText(context, texto, duration).show()
+                } else if (opcionC.value.isEmpty()) {
+                    val texto = "Falta la opción C."
+                    val duration = Toast.LENGTH_LONG
+                    Toast.makeText(context, texto, duration).show()
+                } else if (opcionD.value.isEmpty()) {
+                    val texto = "Falta la opción D."
                     val duration = Toast.LENGTH_LONG
                     Toast.makeText(context, texto, duration).show()
                 }
