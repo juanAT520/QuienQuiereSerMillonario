@@ -1,0 +1,10 @@
+¿Cuál es el planeta más grande del sistema solar?,A: mercurio,B: júpiter,C: el sol,D: saturno,B: júpiter
+¿Cuál es el río más largo del mundo?,A: Nilo,B: Amazonas,C: Misisipi,D: Yangtsé,A: Nilo
+¿Cuál es la capital de Francia?,A: Londres,B: Madrid,C: París,D: Roma,C: París
+¿Quién pintó la "Mona Lisa"?,A: Van Gogh,B: Picasso,C: Da Vinci,D: Dalí,C: Da Vinci
+¿Cuál es el símbolo químico del oro?,A: Au,B: Ag,C: Fe,D: Cu,A: Au
+¿Cuál es el océano más grande del mundo?,A: Atlántico,B: Índico,C: Ártico,D: Pacífico,D: Pacífico
+¿En qué año se celebró la primera Copa del Mundo de fútbol?,A: 1926,B: 1930,C: 1942,D: 1954,B: 1930
+¿Cuál de los siguientes no es uno de los colores primarios?,A: Rojo,B: Azul,C: Amarillo,D: Verde,D: Verde
+¿Cuál es el gas más abundante en la atmósfera de la Tierra?,A: Oxígeno,B: Nitrógeno,C: CO2,D: Hidrógeno,B: Nitrógeno
+¿Cuál es el resultado de la multiplicación de 7 por 8?,A: 14,B: 56,C: 64,D: 112,B: 56
