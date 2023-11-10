@@ -48,7 +48,8 @@ fun GrafoNavegacion() {
                 pantallaPreguntas.preguntasAcertadas,
                 pantallaPreguntas.preguntasFalladas,
                 pantallaPreguntas.numeroPreguntas,
-                pantallaPreguntas.numeroClicks
+                pantallaPreguntas.numeroClicks,
+                navController
             )
         }
         composable("configuracion") {

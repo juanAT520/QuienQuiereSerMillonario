@@ -82,7 +82,6 @@ class PantallaPreguntas : ViewModel() {
         listaImagenes: List<Painter>,
         navController: NavController
     ) {
-        /*TODO en pruebas*/
         SeleccionaNumeroPreguntas(this, listaPreguntas, navController)
         if (iniciarJuego.value) {
             PantallaPregunta(listaPreguntas, listaImagenes, this, navController)
@@ -146,7 +145,6 @@ private fun SeleccionaNumeroPreguntas(
                             miViewModel.iniciarJuego.value = true
                             dialogoAbierto = false
                         } else {
-                            /*TODO meter los mensajes de error*/
                             if (numPreguntas > totalPreguntas) {
                                 val text = "Número demasiado alto."
                                 val duration = Toast.LENGTH_SHORT

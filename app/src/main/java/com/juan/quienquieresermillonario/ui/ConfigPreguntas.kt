@@ -6,10 +6,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Surface
@@ -48,12 +50,14 @@ private fun PantallaMuestraPregunta(navController: NavController) {
     )
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Bottom
     ) {
         TarjetaMenu("Añadir pregunta") { navController.navigate(Rutas.AddPregunta.ruta) }
         TarjetaMenu("Modificar pregunta") { navController.navigate(Rutas.ModPregunta.ruta) }
         TarjetaMenu("Eliminar pregunta") { navController.navigate(Rutas.DelPregunta.ruta) }
+        Spacer(modifier = Modifier.size(50.dp))
         BotonVolver() { navController.popBackStack() }
+        Spacer(modifier = Modifier.size(15.dp))
     }
 }
 
@@ -64,7 +68,7 @@ private fun BotonVolver(funcion: () -> Unit) {
         modifier = Modifier
             .padding(45.dp, 25.dp)
             .height(50.dp)
-            .width(200.dp)
+            .width(150.dp)
             .fillMaxWidth()
             .clickable { funcion() }
     ) {

@@ -1,11 +1,14 @@
 package com.juan.quienquieresermillonario.ui
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -26,15 +29,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.juan.quienquieresermillonario.R
 import com.juan.quienquieresermillonario.ui.theme.baby_Blue
 import com.juan.quienquieresermillonario.ui.theme.blue_Grotto
 import com.juan.quienquieresermillonario.ui.theme.orange
+import com.juan.quienquieresermillonario.ui.theme.shadow
 import com.juan.quienquieresermillonario.ui.theme.white
+import java.io.FileOutputStream
 
 class AddPreguntas : ViewModel() {
     @Composable
@@ -46,6 +53,7 @@ class AddPreguntas : ViewModel() {
 @Composable
 private fun EscribeArchivo(navController: NavController) {
     val context = LocalContext.current
+    val orangeTransparente = orange.copy(alpha = 0.85f)
     Image(
         painter = painterResource(id = R.drawable.fondo),
         contentDescription = "Imagen de fondo",
@@ -57,7 +65,7 @@ private fun EscribeArchivo(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(20.dp)
-            .background(color = orange, shape = RoundedCornerShape(20.dp))
+            .background(color = orangeTransparente, shape = RoundedCornerShape(20.dp))
             .border(width = 3.dp, color = white, shape = RoundedCornerShape(20.dp))
 
     ) {
@@ -70,6 +78,11 @@ private fun EscribeArchivo(navController: NavController) {
         val opciones = listOf(opcionA, opcionB, opcionC, opcionD)
         val expanded = remember { mutableStateOf(false) }
 
+        Text(text = "Añadir preguntas",
+            color = shadow,
+            textAlign = TextAlign.Center,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold)
         CampoDeTexto(texto = pregunta, descripcion = "Introduce la pregunta: ", 65)
         CampoDeTexto(texto = opcionA, descripcion = "Introduce la primera opción: ", 13)
         CampoDeTexto(texto = opcionB, descripcion = "Introduce la segunda opción: ", 13)
@@ -98,37 +111,42 @@ private fun EscribeArchivo(navController: NavController) {
                 }
             }
         }
-
-        Button(
-            onClick = {
-                verificaYAlmacenaPreguntas(
-                    navController,
-                    context,
-                    pregunta.value,
-                    opcionA.value,
-                    opcionB.value,
-                    opcionC.value,
-                    opcionD.value,
-                    respuesta.value
-                )
-            },
-            border = BorderStroke(1.dp, white),
-            colors = ButtonDefaults.buttonColors(blue_Grotto),
-        ) {
-            Text("Guardar")
-        }
-        Button(
-            onClick = { navController.popBackStack() },
-            border = BorderStroke(1.dp, white),
-            colors = ButtonDefaults.buttonColors(blue_Grotto),
-        ) {
-            Text(text = "Volver")
+        Row {
+            Button(
+                onClick = {
+                    val contenido = verificaPreguntas(
+                        context,
+                        pregunta.value,
+                        opcionA.value,
+                        opcionB.value,
+                        opcionC.value,
+                        opcionD.value,
+                        respuesta.value
+                    )
+                    if (contenido != "error") {
+                        almacenaPreguntas(contenido, context, navController)
+                    }
+                },
+                border = BorderStroke(1.dp, white),
+                colors = ButtonDefaults.buttonColors(blue_Grotto),
+                modifier = Modifier.padding(10.dp, 0.dp)
+            ) {
+                Text("Guardar")
+            }
+            Button(
+                onClick = { navController.popBackStack() },
+                border = BorderStroke(1.dp, white),
+                colors = ButtonDefaults.buttonColors(blue_Grotto)
+            ) {
+                Text(text = "Volver")
+            }
         }
     }
+
 }
 
 @Composable
-private fun CampoDeTexto(texto: MutableState<String>, descripcion: String, maximo: Int) {
+fun CampoDeTexto(texto: MutableState<String>, descripcion: String, maximo: Int) {
     Column {
         TextField(
             value = texto.value,
@@ -146,5 +164,17 @@ private fun CampoDeTexto(texto: MutableState<String>, descripcion: String, maxim
         Text("${texto.value.length} / $maximo")
     }
 }
+
+private fun almacenaPreguntas(contenido: String, context: Context, navController: NavController) {
+    val fileOutputStream: FileOutputStream =
+        context.openFileOutput("preguntas.txt", Context.MODE_APPEND)
+    fileOutputStream.write("$contenido\n".toByteArray())
+    fileOutputStream.close()
+    val texto = "Pregunta guardada con éxito."
+    val duration = Toast.LENGTH_SHORT
+    Toast.makeText(context, texto, duration).show()
+    navController.popBackStack()
+}
+
 
 

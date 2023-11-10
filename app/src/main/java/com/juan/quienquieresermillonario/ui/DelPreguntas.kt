@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -28,8 +29,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.juan.quienquieresermillonario.R
@@ -37,6 +40,7 @@ import com.juan.quienquieresermillonario.leerArchivo
 import com.juan.quienquieresermillonario.ui.theme.baby_Blue
 import com.juan.quienquieresermillonario.ui.theme.blue_Grotto
 import com.juan.quienquieresermillonario.ui.theme.orange
+import com.juan.quienquieresermillonario.ui.theme.shadow
 import com.juan.quienquieresermillonario.ui.theme.white
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -54,6 +58,7 @@ class DelPreguntas : ViewModel() {
 @Composable
 private fun PantallaEliminaPregunta(navController: NavController) {
     val context = LocalContext.current
+    val orangeTransparente = orange.copy(alpha = 0.85f)
     Image(
         painter = painterResource(id = R.drawable.fondo),
         contentDescription = "Imagen de fondo",
@@ -65,7 +70,7 @@ private fun PantallaEliminaPregunta(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(20.dp)
-            .background(color = orange, shape = RoundedCornerShape(20.dp))
+            .background(color = orangeTransparente, shape = RoundedCornerShape(20.dp))
             .border(width = 3.dp, color = white, shape = RoundedCornerShape(20.dp))
 
     ) {
@@ -78,6 +83,19 @@ private fun PantallaEliminaPregunta(navController: NavController) {
         val opcionD = remember { mutableStateOf("D: ") }
         val respuesta = remember { mutableStateOf("") }
         val expanded = remember { mutableStateOf(false) }
+
+        Text(
+            text = "Eliminar preguntas",
+            color = shadow,
+            textAlign = TextAlign.Center,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+        CampoTexto(texto = textoPregunta, descripcion = "Pregunta: ", 65)
+        CampoTexto(texto = opcionA, descripcion = "Primera opción: ", 13)
+        CampoTexto(texto = opcionB, descripcion = "Segunda opción: ", 13)
+        CampoTexto(texto = opcionC, descripcion = "Tercera opción: ", 13)
+        CampoTexto(texto = opcionD, descripcion = "Cuarta opción: ", 13)
 
         TextButton(
             modifier = Modifier.padding(20.dp),
@@ -108,34 +126,32 @@ private fun PantallaEliminaPregunta(navController: NavController) {
                 }
             }
         }
-        CampoTexto(texto = textoPregunta, descripcion = "Introduce la pregunta: ", 65)
-        CampoTexto(texto = opcionA, descripcion = "Introduce la primera opción: ", 13)
-        CampoTexto(texto = opcionB, descripcion = "Introduce la segunda opción: ", 13)
-        CampoTexto(texto = opcionC, descripcion = "Introduce la tercera opción: ", 13)
-        CampoTexto(texto = opcionD, descripcion = "Introduce la cuarta opción: ", 13)
-
-        Button(
-            onClick = {
-                eliminaLinea(preguntaYRespuestas.value, context)
-                val texto = "Pregunta eliminada con éxito."
-                val duration = Toast.LENGTH_SHORT
-                Toast.makeText(context, texto, duration).show()
-                navController.popBackStack()
-            },
-            border = BorderStroke(1.dp, white),
-            colors = ButtonDefaults.buttonColors(blue_Grotto)
-        ) {
-            Text("Eliminar")
-        }
-        Button(
-            onClick = { navController.popBackStack() },
-            border = BorderStroke(1.dp, white),
-            colors = ButtonDefaults.buttonColors(blue_Grotto),
-        ) {
-            Text(text = "Volver")
+        Row {
+            Button(
+                onClick = {
+                    eliminaLinea(preguntaYRespuestas.value, context)
+                    val texto = "Pregunta eliminada con éxito."
+                    val duration = Toast.LENGTH_SHORT
+                    Toast.makeText(context, texto, duration).show()
+                    navController.popBackStack()
+                },
+                border = BorderStroke(1.dp, white),
+                colors = ButtonDefaults.buttonColors(blue_Grotto),
+                modifier = Modifier.padding(10.dp, 0.dp)
+            ) {
+                Text("Eliminar")
+            }
+            Button(
+                onClick = { navController.popBackStack() },
+                border = BorderStroke(1.dp, white),
+                colors = ButtonDefaults.buttonColors(blue_Grotto),
+            ) {
+                Text(text = "Volver")
+            }
         }
     }
 }
+
 @Composable
 private fun CampoTexto(
     texto: MutableState<String>,
@@ -150,7 +166,7 @@ private fun CampoTexto(
                     texto.value = nuevoTexto
                 }
             },
-            label = { Text(descripcion) },
+            label = { Text(text = descripcion) },
             shape = RoundedCornerShape(7.dp),
             modifier = Modifier
                 .border(width = 2.dp, color = white, shape = RoundedCornerShape(7.dp))
@@ -162,7 +178,7 @@ private fun CampoTexto(
 
 // Este método lo tengo como auxiliar para eliminar preguntas. No lo he hecho yo y si
 // me preguntas por como funciona alguna cosa concreta probablemente no sepa responder
-private fun eliminaLinea(lineaNoDeseada: String, context: Context) {
+fun eliminaLinea(lineaNoDeseada: String, context: Context) {
     val file = File(context.filesDir, "preguntas.txt")
     val reader = BufferedReader(FileReader(file))
 
@@ -174,7 +190,7 @@ private fun eliminaLinea(lineaNoDeseada: String, context: Context) {
     while (reader.readLine().also { currentLine = it } != null) {
         // trim newline when comparing with lineToRemove
         val trimmedLine = currentLine!!.trim()
-        if (trimmedLine == lineaNoDeseada) continue
+        if (trimmedLine == lineaNoDeseada.trim()) continue
         writer.write(currentLine + System.getProperty("line.separator"))
     }
     writer.close()
@@ -191,3 +207,4 @@ private fun eliminaLinea(lineaNoDeseada: String, context: Context) {
     if (!fileTemporal.renameTo(file))
         println("Could not rename file")
 }
+
