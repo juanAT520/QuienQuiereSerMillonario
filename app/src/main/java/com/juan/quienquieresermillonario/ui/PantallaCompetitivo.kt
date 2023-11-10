@@ -18,8 +18,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableIntState
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -118,7 +116,6 @@ fun JuegoCompetitivo(
         BotonesRespuesta(listaPreguntas[miViewModel.indice.intValue], miViewModel)
         MuestraMensajeRespuesta(listaPreguntas[miViewModel.indice.intValue], miViewModel)
         MuestraComodinLlamada(
-            "Comodín de la llamada",
             listaPreguntas[miViewModel.indice.intValue].respuesta,
             miViewModel,
             abuelaPaqui
@@ -128,7 +125,6 @@ fun JuegoCompetitivo(
             miViewModel
         )
         MuestraComodinPublico(
-            "Comodín del público",
             miViewModel,
             listaPreguntas[miViewModel.indice.intValue]
         )
@@ -234,7 +230,7 @@ private fun MuestraMensajeRespuesta(pregunta: Pregunta, miViewModel: PantallaCom
                     onClickDialogo(miViewModel)
                 },
                 title = { Text("Y la respuesta es...") },
-                text = { Text("CORRECTA!!! la respuesta era la ${pregunta.respuesta}") },
+                text = { Text("CORRECTA!!! la respuesta era la ${pregunta.respuesta}\n\nPregunta ${(miViewModel.indice.intValue + 1)} de ${miViewModel.numeroPreguntas.intValue}") },
                 confirmButton = {
                     Button(
                         onClick = {
@@ -282,7 +278,6 @@ private fun Comodin(comodin: String, imagen: Painter, miViewModel: PantallaCompe
 
 @Composable
 private fun MuestraComodinLlamada(
-    comodin: String,
     respuesta: String,
     miViewModel: PantallaCompetitivo,
     abuelaPaqui: MediaPlayer
@@ -294,7 +289,7 @@ private fun MuestraComodinLlamada(
                     miViewModel.comodinLlamada.value = false
                     miViewModel.comodinLlamadaDisponible.value = false
                 },
-                title = { Text(comodin) },
+                title = { Text("Comodín de la llamada") },
                 text = {
                     Column {
                         Image(
@@ -375,7 +370,6 @@ private fun opcionIncorrecta(pregunta: Pregunta, miViewModel: PantallaCompetitiv
 
 @Composable
 private fun MuestraComodinPublico(
-    comodin: String,
     miViewModel: PantallaCompetitivo,
     pregunta: Pregunta
 ) {
@@ -387,7 +381,7 @@ private fun MuestraComodinPublico(
                     miViewModel.comodinPublico.value = false
                     miViewModel.comodinPublicoDisponible.value = false
                 },
-                title = { Text(comodin) },
+                title = { Text("Comodín del público") },
                 text = {
                     Column {
                         Text(respuestaPublico)

@@ -73,6 +73,7 @@ fun MenuPrincipal(navController: NavHostController) {
         TarjetaMenu("Ronda competitiva") { navController.navigate(Rutas.Competitivo.ruta) }
         TarjetaMenu("Estadísticas") { navController.navigate(Rutas.Estadisticas.ruta) }
         TarjetaMenu("Añadir pregunta") { navController.navigate(Rutas.AddPregunta.ruta) }
+        TarjetaMenu("Modificar pregunta") { navController.navigate(Rutas.ModPregunta.ruta) }
     }
 }
 
@@ -128,40 +129,9 @@ fun leerArchivo(context: Context): List<Pregunta> {
 }
 
 fun leerArchivoCompetitivo(context: Context): List<Pregunta> {
-    var listaPreguntasCompetitivo = leerArchivo(context)
+    val listaPreguntasCompetitivo = leerArchivo(context)
     return listaPreguntasCompetitivo.take(10)
 }
-
-// Este método lo tengo como auxiliar para eliminar preguntas. No lo he hecho yo y si
-// me preguntas por como funciona alguna cosa concreta probablemente no sepa responder
-/*fun removeLine(file: File, lineaNoDeseada: String) {
-    val fileTemporal = File.createTempFile("buffer", null)
-
-    val reader = BufferedReader(FileReader(file))
-    val writer = BufferedWriter(FileWriter(fileTemporal))
-
-    var currentLine: String?
-
-    while (reader.readLine().also { currentLine = it } != null) {
-        // trim newline when comparing with lineToRemove
-        val trimmedLine = currentLine!!.trim()
-        if (trimmedLine == lineaNoDeseada) continue
-        writer.write(currentLine + System.getProperty("line.separator"))
-    }
-    writer.close()
-    reader.close()
-
-    //Delete the original file
-    if (!file.delete()) {
-        //Failed to delete the file
-        println("Could not delete file")
-        return
-    }
-
-    //Rename the new file to the filename the original file had.
-    if (!fileTemporal.renameTo(file))
-        println("Could not rename file")
-}*/
 
 fun leerArchivoAssetsYCrearEnMemoria(context: Context) {
     val file = File(context.filesDir, "preguntas.txt")

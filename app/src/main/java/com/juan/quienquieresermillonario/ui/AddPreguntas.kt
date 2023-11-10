@@ -1,7 +1,5 @@
 package com.juan.quienquieresermillonario.ui
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -36,7 +35,6 @@ import com.juan.quienquieresermillonario.ui.theme.baby_Blue
 import com.juan.quienquieresermillonario.ui.theme.blue_Grotto
 import com.juan.quienquieresermillonario.ui.theme.orange
 import com.juan.quienquieresermillonario.ui.theme.white
-import java.io.FileOutputStream
 
 class AddPreguntas : ViewModel() {
     @Composable
@@ -104,48 +102,16 @@ private fun EscribeArchivo(navController: NavController) {
 
         Button(
             onClick = {
-                if (!pregunta.value.isEmpty() &&
-                    !respuesta.value.isEmpty() &&
-                    !opcionA.value.isEmpty() &&
-                    !opcionB.value.isEmpty() &&
-                    !opcionC.value.isEmpty() &&
-                    !opcionD.value.isEmpty()
-                ) {
-                    val contenido =
-                        "${pregunta.value},${opcionA.value},${opcionB.value},${opcionC.value},${opcionD.value},${respuesta.value}"
-                    val fileOutputStream: FileOutputStream =
-                        context.openFileOutput("preguntas.txt", Context.MODE_APPEND)
-                    fileOutputStream.write("$contenido\n".toByteArray())
-                    fileOutputStream.close()
-                    val texto = "Pregunta guardada con éxito."
-                    val duration = Toast.LENGTH_SHORT
-                    Toast.makeText(context, texto, duration).show()
-                    navController.popBackStack()
-                } else if (pregunta.value.isEmpty()) {
-                    val texto = "Falta la pregunta."
-                    val duration = Toast.LENGTH_LONG
-                    Toast.makeText(context, texto, duration).show()
-                } else if (respuesta.value.isEmpty()) {
-                    val texto = "Falta la respuesta correcta."
-                    val duration = Toast.LENGTH_LONG
-                    Toast.makeText(context, texto, duration).show()
-                } else if (opcionA.value.isEmpty()) {
-                    val texto = "Falta la opción A."
-                    val duration = Toast.LENGTH_LONG
-                    Toast.makeText(context, texto, duration).show()
-                } else if (opcionB.value.isEmpty()) {
-                    val texto = "Falta la opción B."
-                    val duration = Toast.LENGTH_LONG
-                    Toast.makeText(context, texto, duration).show()
-                } else if (opcionC.value.isEmpty()) {
-                    val texto = "Falta la opción C."
-                    val duration = Toast.LENGTH_LONG
-                    Toast.makeText(context, texto, duration).show()
-                } else if (opcionD.value.isEmpty()) {
-                    val texto = "Falta la opción D."
-                    val duration = Toast.LENGTH_LONG
-                    Toast.makeText(context, texto, duration).show()
-                }
+                verificaYAlmacenaPreguntas(
+                    navController,
+                    context,
+                    pregunta.value,
+                    opcionA.value,
+                    opcionB.value,
+                    opcionC.value,
+                    opcionD.value,
+                    respuesta.value
+                )
             },
             border = BorderStroke(1.dp, white),
             colors = ButtonDefaults.buttonColors(blue_Grotto),
@@ -169,6 +135,7 @@ private fun CampoDeTexto(texto: MutableState<String>, descripcion: String, maxim
             shape = RoundedCornerShape(7.dp),
             modifier = Modifier
                 .border(width = 2.dp, color = white, shape = RoundedCornerShape(7.dp))
+                .width(300.dp)
         )
         Text("${texto.value.length} / $maximo")
     }

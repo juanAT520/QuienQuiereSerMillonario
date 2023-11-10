@@ -6,4 +6,5 @@ sealed class Rutas(val ruta: String) {
     object Competitivo : Rutas("competitivo")
     object Estadisticas : Rutas("estadisticas")
     object AddPregunta : Rutas("addPregunta")
+    object ModPregunta : Rutas("modPregunta")
 }

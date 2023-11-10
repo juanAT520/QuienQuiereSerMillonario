@@ -11,6 +11,7 @@ import com.juan.quienquieresermillonario.leerArchivo
 import com.juan.quienquieresermillonario.leerArchivoCompetitivo
 import com.juan.quienquieresermillonario.ui.AddPreguntas
 import com.juan.quienquieresermillonario.ui.Estadistica
+import com.juan.quienquieresermillonario.ui.ModPreguntas
 import com.juan.quienquieresermillonario.ui.PantallaCompetitivo
 import com.juan.quienquieresermillonario.ui.PantallaPreguntas
 
@@ -21,6 +22,7 @@ fun GrafoNavegacion() {
     val pantallaCompetitivo = PantallaCompetitivo()
     val pantallaEstadistica = Estadistica()
     val pantallaAddPregunta = AddPreguntas()
+    val pantallaModPreguntas = ModPreguntas()
     val listaImagenes = almacenaImagenes()
     var listaPreguntas = leerArchivo(LocalContext.current)
     var listaPreguntasCompetitivo = leerArchivo(LocalContext.current)
@@ -48,6 +50,9 @@ fun GrafoNavegacion() {
         }
         composable("addPregunta") {
             pantallaAddPregunta.Inicio(navController)
+        }
+        composable("modPregunta") {
+            pantallaModPreguntas.Inicio(navController)
         }
     }
 }
