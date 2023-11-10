@@ -99,7 +99,6 @@ private fun EscribeArchivo(navController: NavController) {
             }
         }
 
-
         Button(
             onClick = {
                 verificaYAlmacenaPreguntas(
@@ -117,6 +116,13 @@ private fun EscribeArchivo(navController: NavController) {
             colors = ButtonDefaults.buttonColors(blue_Grotto),
         ) {
             Text("Guardar")
+        }
+        Button(
+            onClick = { navController.popBackStack() },
+            border = BorderStroke(1.dp, white),
+            colors = ButtonDefaults.buttonColors(blue_Grotto),
+        ) {
+            Text(text = "Volver")
         }
     }
 }

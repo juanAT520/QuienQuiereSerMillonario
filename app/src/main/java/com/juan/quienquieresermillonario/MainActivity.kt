@@ -72,8 +72,7 @@ fun MenuPrincipal(navController: NavHostController) {
         TarjetaMenu("Ronda amistosa") { navController.navigate(Rutas.Amistoso.ruta) }
         TarjetaMenu("Ronda competitiva") { navController.navigate(Rutas.Competitivo.ruta) }
         TarjetaMenu("Estadísticas") { navController.navigate(Rutas.Estadisticas.ruta) }
-        TarjetaMenu("Añadir pregunta") { navController.navigate(Rutas.AddPregunta.ruta) }
-        TarjetaMenu("Modificar pregunta") { navController.navigate(Rutas.ModPregunta.ruta) }
+        TarjetaMenu("Configuración de preguntas") { navController.navigate(Rutas.Configuracion.ruta) }
     }
 }
 

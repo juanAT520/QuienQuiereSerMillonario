@@ -41,19 +41,18 @@ import com.juan.quienquieresermillonario.ui.theme.white
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
-import java.io.FileOutputStream
 import java.io.FileReader
 import java.io.FileWriter
 
-class ModPreguntas : ViewModel() {
+class DelPreguntas : ViewModel() {
     @Composable
     fun Inicio(navController: NavController) {
-        PantallaMuestraPregunta(navController)
+        PantallaEliminaPregunta(navController)
     }
 }
 
 @Composable
-private fun PantallaMuestraPregunta(navController: NavController) {
+private fun PantallaEliminaPregunta(navController: NavController) {
     val context = LocalContext.current
     Image(
         painter = painterResource(id = R.drawable.fondo),
@@ -71,8 +70,7 @@ private fun PantallaMuestraPregunta(navController: NavController) {
 
     ) {
         val listaPreguntas = leerArchivo(context)
-        val preguntaYRespuestasViejas = remember { mutableStateOf("") }
-        val preguntaYRespuestasNuevas = remember { mutableStateOf("") }
+        val preguntaYRespuestas = remember { mutableStateOf("") }
         val textoPregunta = remember { mutableStateOf("") }
         val opcionA = remember { mutableStateOf("A: ") }
         val opcionB = remember { mutableStateOf("B: ") }
@@ -89,14 +87,14 @@ private fun PantallaMuestraPregunta(navController: NavController) {
             Text(
                 color = white,
                 textAlign = TextAlign.Center,
-                text = "Pulsa para seleccionar la pregunta que quieres modificar."
+                text = "Pulsa para seleccionar la pregunta que quieres eliminar."
             )
             DropdownMenu(expanded = expanded.value, onDismissRequest = { expanded.value = false }) {
                 listaPreguntas.forEach { pregunta ->
                     DropdownMenuItem(
                         text = { Text(pregunta.pregunta) },
                         onClick = {
-                            preguntaYRespuestasViejas.value =
+                            preguntaYRespuestas.value =
                                 "${pregunta.pregunta},${pregunta.opcionA},${pregunta.opcionB},${pregunta.opcionC},${pregunta.opcionD},${pregunta.respuesta}"
                             textoPregunta.value = pregunta.pregunta
                             opcionA.value = pregunta.opcionA
@@ -118,31 +116,16 @@ private fun PantallaMuestraPregunta(navController: NavController) {
 
         Button(
             onClick = {
-                verificaYAlmacenaPreguntas(
-                    navController,
-                    context,
-                    textoPregunta.value,
-                    opcionA.value,
-                    opcionB.value,
-                    opcionC.value,
-                    opcionD.value,
-                    respuesta.value
-                )
-                preguntaYRespuestasNuevas.value =
-                    "${textoPregunta.value},${opcionA.value},${opcionB.value},${opcionC.value},${opcionD.value},${respuesta.value}"
-                println(preguntaYRespuestasViejas.value)
-                println(preguntaYRespuestasNuevas.value)
-                modificaLinea(
-                    preguntaYRespuestasViejas.value,
-                    preguntaYRespuestasNuevas.value,
-                    context
-                )
+                eliminaLinea(preguntaYRespuestas.value, context)
+                val texto = "Pregunta eliminada con éxito."
+                val duration = Toast.LENGTH_SHORT
+                Toast.makeText(context, texto, duration).show()
+                navController.popBackStack()
             },
             border = BorderStroke(1.dp, white),
-            colors = ButtonDefaults.buttonColors(blue_Grotto),
-            modifier = Modifier.padding(10.dp, 0.dp)
+            colors = ButtonDefaults.buttonColors(blue_Grotto)
         ) {
-            Text("Guardar cambios")
+            Text("Eliminar")
         }
         Button(
             onClick = { navController.popBackStack() },
@@ -153,7 +136,6 @@ private fun PantallaMuestraPregunta(navController: NavController) {
         }
     }
 }
-
 @Composable
 private fun CampoTexto(
     texto: MutableState<String>,
@@ -172,67 +154,15 @@ private fun CampoTexto(
             shape = RoundedCornerShape(7.dp),
             modifier = Modifier
                 .border(width = 2.dp, color = white, shape = RoundedCornerShape(7.dp))
-                .width(300.dp)
+                .width(300.dp),
+            enabled = false
         )
     }
 }
 
-fun verificaYAlmacenaPreguntas(
-    navController: NavController,
-    context: Context,
-    pregunta: String,
-    opcionA: String,
-    opcionB: String,
-    opcionC: String,
-    opcionD: String,
-    respuesta: String
-) {
-    if (!pregunta.isEmpty() &&
-        !respuesta.isEmpty() &&
-        !opcionA.isEmpty() &&
-        !opcionB.isEmpty() &&
-        !opcionC.isEmpty() &&
-        !opcionD.isEmpty()
-    ) {
-        val contenido =
-            "$pregunta,$opcionA,$opcionB,$opcionC,$opcionD,$respuesta"
-        val fileOutputStream: FileOutputStream =
-            context.openFileOutput("preguntas.txt", Context.MODE_APPEND)
-        fileOutputStream.write("$contenido\n".toByteArray())
-        fileOutputStream.close()
-        val texto = "Pregunta guardada con éxito."
-        val duration = Toast.LENGTH_SHORT
-        Toast.makeText(context, texto, duration).show()
-        navController.popBackStack()
-    } else if (pregunta.isEmpty()) {
-        val texto = "Falta la pregunta."
-        val duration = Toast.LENGTH_LONG
-        Toast.makeText(context, texto, duration).show()
-    } else if (respuesta.isEmpty()) {
-        val texto = "Falta la respuesta correcta."
-        val duration = Toast.LENGTH_LONG
-        Toast.makeText(context, texto, duration).show()
-    } else if (opcionA.isEmpty()) {
-        val texto = "Falta la opción A."
-        val duration = Toast.LENGTH_LONG
-        Toast.makeText(context, texto, duration).show()
-    } else if (opcionB.isEmpty()) {
-        val texto = "Falta la opción B."
-        val duration = Toast.LENGTH_LONG
-        Toast.makeText(context, texto, duration).show()
-    } else if (opcionC.isEmpty()) {
-        val texto = "Falta la opción C."
-        val duration = Toast.LENGTH_LONG
-        Toast.makeText(context, texto, duration).show()
-    } else if (opcionD.isEmpty()) {
-        val texto = "Falta la opción D."
-        val duration = Toast.LENGTH_LONG
-        Toast.makeText(context, texto, duration).show()
-    }
-}
-
-
-private fun modificaLinea(lineaVieja: String, lineaNueva: String, context: Context) {
+// Este método lo tengo como auxiliar para eliminar preguntas. No lo he hecho yo y si
+// me preguntas por como funciona alguna cosa concreta probablemente no sepa responder
+private fun eliminaLinea(lineaNoDeseada: String, context: Context) {
     val file = File(context.filesDir, "preguntas.txt")
     val reader = BufferedReader(FileReader(file))
 
@@ -242,21 +172,22 @@ private fun modificaLinea(lineaVieja: String, lineaNueva: String, context: Conte
     var currentLine: String?
 
     while (reader.readLine().also { currentLine = it } != null) {
+        // trim newline when comparing with lineToRemove
         val trimmedLine = currentLine!!.trim()
-        if (trimmedLine == lineaVieja) {
-            writer.write(lineaNueva + System.getProperty("line.separator"))
-        } else {
-            writer.write(currentLine + System.getProperty("line.separator"))
-        }
+        if (trimmedLine == lineaNoDeseada) continue
+        writer.write(currentLine + System.getProperty("line.separator"))
     }
     writer.close()
     reader.close()
 
+    //Delete the original file
     if (!file.delete()) {
-        println("No se pudo eliminar el archivo.")
+        //Failed to delete the file
+        println("Could not delete file")
         return
     }
 
+    //Rename the new file to the filename the original file had.
     if (!fileTemporal.renameTo(file))
-        println("No se pudo renombrar el archivo.")
+        println("Could not rename file")
 }

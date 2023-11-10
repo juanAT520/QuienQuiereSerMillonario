@@ -10,6 +10,8 @@ import com.juan.quienquieresermillonario.almacenaImagenes
 import com.juan.quienquieresermillonario.leerArchivo
 import com.juan.quienquieresermillonario.leerArchivoCompetitivo
 import com.juan.quienquieresermillonario.ui.AddPreguntas
+import com.juan.quienquieresermillonario.ui.ConfigPreguntas
+import com.juan.quienquieresermillonario.ui.DelPreguntas
 import com.juan.quienquieresermillonario.ui.Estadistica
 import com.juan.quienquieresermillonario.ui.ModPreguntas
 import com.juan.quienquieresermillonario.ui.PantallaCompetitivo
@@ -21,8 +23,10 @@ fun GrafoNavegacion() {
     val pantallaPreguntas = PantallaPreguntas()
     val pantallaCompetitivo = PantallaCompetitivo()
     val pantallaEstadistica = Estadistica()
+    val pantallaConfiguracion = ConfigPreguntas()
     val pantallaAddPregunta = AddPreguntas()
     val pantallaModPreguntas = ModPreguntas()
+    val pantallaDelPreguntas = DelPreguntas()
     val listaImagenes = almacenaImagenes()
     var listaPreguntas = leerArchivo(LocalContext.current)
     var listaPreguntasCompetitivo = leerArchivo(LocalContext.current)
@@ -36,7 +40,6 @@ fun GrafoNavegacion() {
         composable("amistoso") {
             pantallaPreguntas.Inicio(listaPreguntas, listaImagenes, navController)
         }
-        /*TODO hacer que lea solo 10 lineas aleatorias de preguntas.txt*/
         composable("competitivo") {
             pantallaCompetitivo.Inicio(listaPreguntasCompetitivo, listaImagenes, navController)
         }
@@ -48,11 +51,17 @@ fun GrafoNavegacion() {
                 pantallaPreguntas.numeroClicks
             )
         }
+        composable("configuracion") {
+            pantallaConfiguracion.Inicio(navController)
+        }
         composable("addPregunta") {
             pantallaAddPregunta.Inicio(navController)
         }
         composable("modPregunta") {
             pantallaModPreguntas.Inicio(navController)
+        }
+        composable("delPregunta") {
+            pantallaDelPreguntas.Inicio(navController)
         }
     }
 }
