@@ -78,11 +78,13 @@ private fun EscribeArchivo(navController: NavController) {
         val opciones = listOf(opcionA, opcionB, opcionC, opcionD)
         val expanded = remember { mutableStateOf(false) }
 
-        Text(text = "Añadir preguntas",
+        Text(
+            text = "Añadir preguntas",
             color = shadow,
             textAlign = TextAlign.Center,
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
         CampoDeTexto(texto = pregunta, descripcion = "Introduce la pregunta: ", 65)
         CampoDeTexto(texto = opcionA, descripcion = "Introduce la primera opción: ", 13)
         CampoDeTexto(texto = opcionB, descripcion = "Introduce la segunda opción: ", 13)

@@ -48,7 +48,6 @@ class ModPreguntas : ViewModel() {
     }
 }
 
-/*TODO comprobar si puedo utilizar la misma función de textfield de modificar y el de añadir*/
 @Composable
 private fun PantallaMuestraPregunta(navController: NavController) {
     val context = LocalContext.current
@@ -226,6 +225,10 @@ private fun modificaLinea(
         lines[index] = lineaNueva
     }
 
+    /*  El 'lines.joinToString(separator = "\n")' sirve para recoger todos los elementos
+     de la lista 'lines' en un solo String separando cada elemento con un salto de linea.
+      El 'file.writeText' sirve para sobreescribir el contenido del archivo que tenía
+      con el nuevo String que ha generado.*/
     file.writeText(lines.joinToString(separator = "\n"))
     val texto = "Pregunta guardada con éxito."
     val duration = Toast.LENGTH_SHORT

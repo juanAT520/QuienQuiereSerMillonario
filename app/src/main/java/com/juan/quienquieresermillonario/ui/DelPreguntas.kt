@@ -176,8 +176,6 @@ private fun CampoTexto(
     }
 }
 
-// Este método lo tengo como auxiliar para eliminar preguntas. No lo he hecho yo y si
-// me preguntas por como funciona alguna cosa concreta probablemente no sepa responder
 fun eliminaLinea(lineaNoDeseada: String, context: Context) {
     val file = File(context.filesDir, "preguntas.txt")
     val reader = BufferedReader(FileReader(file))
@@ -185,26 +183,23 @@ fun eliminaLinea(lineaNoDeseada: String, context: Context) {
     val fileTemporal = File.createTempFile("buffer", null)
     val writer = BufferedWriter(FileWriter(fileTemporal))
 
-    var currentLine: String?
+    var lineaActual: String?
 
-    while (reader.readLine().also { currentLine = it } != null) {
-        // trim newline when comparing with lineToRemove
-        val trimmedLine = currentLine!!.trim()
-        if (trimmedLine == lineaNoDeseada.trim()) continue
-        writer.write(currentLine + System.getProperty("line.separator"))
+    // En este caso el '.also' se utiliza para realizar el 'reader.readLine()' antes de
+    // comprobar si la linea el null
+    while (reader.readLine().also { lineaActual = it } != null) {
+        // Como 'lineaActual' puede ser nula le obligo al código a que me haga caso y que
+        // confíe en que sé lo que hago con el operador !! (Sea nulo o no hazlo)
+        val lineaActualSinEspacios = lineaActual!!.trim()
+        // Si la linea actual coincide con la que quiero eliminar pasará a la siguiente
+        // linea sin hacer nada
+        if (lineaActualSinEspacios == lineaNoDeseada.trim()) continue
+        writer.write("$lineaActual\n")
     }
     writer.close()
     reader.close()
-
-    //Delete the original file
-    if (!file.delete()) {
-        //Failed to delete the file
-        println("Could not delete file")
-        return
-    }
-
-    //Rename the new file to the filename the original file had.
-    if (!fileTemporal.renameTo(file))
-        println("Could not rename file")
+    file.delete()
+    fileTemporal.copyTo(file)
+    fileTemporal.delete()
 }
 
