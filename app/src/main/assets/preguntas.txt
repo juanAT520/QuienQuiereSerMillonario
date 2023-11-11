@@ -32,3 +32,4 @@
 ¿Cuál es el resultado de la suma de 12 y 18?,A: 28,B: 30,C: 32,D: 34,B: 30
 ¿Cual es el país con más volcanes activos?,A: Japón,B: Indonesia,C: Italia,D: EEUU,B: Indonesia
 ¿Cuando tuvo lugar la revolución americana?,A: 1776,B: 1789,C: 1800,D: 1812,A: 1776
+¿Que fruta tiene más vitamina C?,A: Kiwi,B: Guayaba,C: Limón,D: Naranja,B: Guayaba
