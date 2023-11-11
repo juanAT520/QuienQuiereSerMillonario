@@ -230,7 +230,7 @@ private fun MuestraMensajeRespuesta(pregunta: Pregunta, miViewModel: PantallaCom
                     onClickDialogo(miViewModel)
                 },
                 title = { Text("Y la respuesta es...") },
-                text = { Text("CORRECTA!!! la respuesta era la ${pregunta.respuesta}\n\nPregunta ${(miViewModel.indice.intValue + 1)} de ${miViewModel.numeroPreguntas.intValue}") },
+                text = { Text("CORRECTA!!!\nLa respuesta es la ${pregunta.respuesta}\n\nPregunta ${(miViewModel.indice.intValue + 1)} de ${miViewModel.numeroPreguntas.intValue}") },
                 confirmButton = {
                     Button(
                         onClick = {

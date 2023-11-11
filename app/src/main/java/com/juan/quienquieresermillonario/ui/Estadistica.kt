@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.juan.quienquieresermillonario.R
+import com.juan.quienquieresermillonario.nav.Rutas
 import com.juan.quienquieresermillonario.ui.theme.blue_Grotto
 import com.juan.quienquieresermillonario.ui.theme.orange
 import com.juan.quienquieresermillonario.ui.theme.shadow
@@ -85,7 +86,7 @@ private fun MuestraEstadisticas(
             modifier = Modifier.fillMaxWidth()
         ) {
             Button(
-                onClick = { navController.popBackStack() },
+                onClick = { navController.navigate(Rutas.Principal.ruta) },
                 border = BorderStroke(1.dp, white),
                 colors = ButtonDefaults.buttonColors(blue_Grotto),
             ) {

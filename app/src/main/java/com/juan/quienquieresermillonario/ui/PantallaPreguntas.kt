@@ -383,11 +383,11 @@ private fun MuestraMensajeRespuesta(
     if (miViewModel.dialogoAbierto.value) {
         if (miViewModel.esCorrecta.value) {
             miViewModel.textoRespuesta.value =
-                "CORRECTA!!! la respuesta es la ${pregunta.respuesta}"
+                "CORRECTA!!!\nLa respuesta es la ${pregunta.respuesta}"
             miViewModel.preguntasAcertadas += 1
         } else {
             miViewModel.textoRespuesta.value =
-                "Noooo, la respuesta correcta es la ${pregunta.respuesta}"
+                "Noooo\nLa respuesta correcta es la ${pregunta.respuesta}"
             miViewModel.preguntasFalladas += 1
         }
         AlertDialog(
