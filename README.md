@@ -47,11 +47,11 @@ Follow these steps to get the "Who Wants to Be a Millionaire" Game App up and ru
 - Explore the Question Editor to customize and manage the trivia content.
 
 ## Screenshots
-<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/3a0e9f48-5d52-419f-a9fb-5e67ee03b2f5" width="145"/>
-<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/ffac4d64-bfe4-4aab-85fe-ad25420c5a37" width="145"/>
-<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/837d2bfd-d2b8-4b08-9584-fc8d79517d5a" width="145"/>
-<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/2cf38345-6a70-4b4f-a62a-8b6fc1159301" width="145"/>
-<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/c19dd9be-4536-4182-bbed-db8d6aa276fb" width="145"/>
-<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/1475819a-e033-443b-9518-448dff6bbbb0" width="145"/>
+<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/3a0e9f48-5d52-419f-a9fb-5e67ee03b2f5" width="140"/>
+<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/ffac4d64-bfe4-4aab-85fe-ad25420c5a37" width="140"/>
+<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/837d2bfd-d2b8-4b08-9584-fc8d79517d5a" width="140"/>
+<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/2cf38345-6a70-4b4f-a62a-8b6fc1159301" width="140"/>
+<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/c19dd9be-4536-4182-bbed-db8d6aa276fb" width="140"/>
+<img src="https://github.com/juanAT520/QuienQuiereSerMillonario/assets/106825751/1475819a-e033-443b-9518-448dff6bbbb0" width="140"/>
 
 # Enjoy the game! 🎉
